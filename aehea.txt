@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Najlepszy Ziomku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            margin: 20px;
+        }
+        h2 {
+            color: #3498db;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Witaj na stronie mojego najlepszego ziomka!</h1>
+    </header>
+
+    <section>
+        <div class="content">
+            <h2>Kim jest najlepszy ziomek?</h2>
+            <p>Najlepszy ziomek to osoba, która zawsze jest obok, kiedy jej potrzebujesz. To przyjaciel, z którym dzielisz najlepsze wspomnienia, śmiech i przygody. Taki ziomek zawsze potrafi rozśmieszyć i wspierać w trudnych chwilach!</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="content">
+            <h2>Dlaczego go kochamy?</h2>
+            <p>Jest niezastąpiony! Zawsze potrafi znaleźć sposób, by rozwiązać każdy problem i sprawić, by każdy dzień był lepszy. Z nim życie staje się bardziej kolorowe!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Najlepszy Ziomku - Wszelkie prawa zastrzeżone</p>
+    </footer>
+</body>
+</html>
