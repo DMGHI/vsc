@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolokalizacja</title>
+</head>
+<body>
+    <h2>Uzyskaj lokalizację swojego urządzenia</h2>
+    <button onclick="getLocation()">Pobierz lokalizację</button>
+    <p id="location"></p>
+    
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Geolokalizacja nie jest wspierana przez tę przeglądarkę.";
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            document.getElementById("location").innerHTML = "Szerokość geograficzna: " + latitude + "<br>Długość geograficzna: " + longitude;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("location").innerHTML = "Użytkownik odmówił dostęp do lokalizacji.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("location").innerHTML = "Nie można uzyskać pozycji.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("location").innerHTML = "Przekroczono czas oczekiwania na lokalizację.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("location").innerHTML = "Wystąpił nieznany błąd.";
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
