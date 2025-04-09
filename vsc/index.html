@@ -1,13 +1,86 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moja Strona</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolokalizacja i Mapa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        #location {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Witaj na mojej stronie!</h1>
-  <p>To jest przykładowa strona HTML.</p>
-  <a href="https://www.google.com" target="_blank">Kliknij, aby otworzyć Google</a>
+    <h1>Geolokalizacja i Mapa</h1>
+    <p>Twoja lokalizacja:</p>
+    <div id="location">Ładowanie...</div>
+    <div id="map"></div>
+
+    <script>
+        // Klucz API Google Maps (wstaw tutaj swój klucz)
+        const apiKey = 'YOUR_GOOGLE_API_KEY';
+
+        function initMap() {
+            // Sprawdź, czy geolokalizacja jest dostępna w przeglądarce
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Wyświetlanie lokalizacji na mapie
+                    const userLocation = { lat: lat, lng: lon };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 10,
+                        center: userLocation,
+                    });
+
+                    // Dodaj marker na mapie
+                    const marker = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        title: "Twoja lokalizacja",
+                    });
+
+                    // Uzyskiwanie miasta z Geocoding API
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'location': userLocation }, function(results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            if (results[0]) {
+                                const city = results[0].address_components.find(component => 
+                                    component.types.includes("locality")
+                                );
+                                document.getElementById("location").textContent = `Miasto: ${city ? city.long_name : 'Nieznane'}`;
+                            } else {
+                                document.getElementById("location").textContent = 'Nie udało się uzyskać adresu.';
+                            }
+                        } else {
+                            document.getElementById("location").textContent = 'Błąd geolokalizacji.';
+                        }
+                    });
+                }, function(error) {
+                    console.error(error);
+                    document.getElementById("location").textContent = "Nie udało się pobrać lokalizacji.";
+                });
+            } else {
+                document.getElementById("location").textContent = "Geolokalizacja jest niedostępna w tej przeglądarce.";
+            }
+        }
+
+        // Załaduj API Google Maps
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    </script>
 </body>
 </html>

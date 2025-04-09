@@ -1,0 +1,23 @@
+import folium
+from geopy.geocoders import Nominatim
+
+# Uzyskiwanie lokalizacji
+geolocator = Nominatim(user_agent="myGeocoder")
+location = geolocator.geocode("Warsaw, Poland")  # Możesz podać miasto lub dokładny adres
+
+# Sprawdzenie, czy udało się uzyskać lokalizację
+if location:
+    print(f"Lokalizacja: {location.address}")
+    print(f"Szerokość geograficzna: {location.latitude}, Długość geograficzna: {location.longitude}")
+
+    # Tworzenie mapy
+    map = folium.Map(location=[location.latitude, location.longitude], zoom_start=12)
+
+    # Dodanie markera na mapie
+    folium.Marker([location.latitude, location.longitude], popup="Twoja lokalizacja").add_to(map)
+
+    # Zapisz mapę do pliku HTML
+    map.save("moja_mapa.html")
+else:
+    print("Nie udało się znaleźć lokalizacji.")
+    
